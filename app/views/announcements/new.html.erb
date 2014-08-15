@@ -1,0 +1,43 @@
+	<body>
+		<div class="container">
+			<%= form_for :announcement, url: announcements_path do |f| %>
+				<% if @announcement.errors.any? %>
+				<div class="errors">
+					<h2>The following <%= pluralize(@announcement.errors.count, "error") %> prohibited this
+						announcement from being saved:</h2>
+						<ul>
+							<% @announcement.errors.full_messages.each do |message| %>
+							<li><%= message %></li>
+							<% end %>
+						</ul>
+				</div>
+				<% end %>
+				<p>
+			    <%= f.label :title %>
+			    <%= f.text_field :title %>
+				</p>
+
+				<p>
+				<%= f.label :date %>
+				<%= f.date_select :date %>
+				</p>
+
+				<p>
+			  	<%= f.label :category %>
+			  	<%= f.select :category, options_for_select(['AP Chemistry', 'Honors Chemistry', 'Regular Chemistry','Album of the Week']) %>
+				</p>
+
+			  	<p>
+			    <%= f.label :content %><br>
+			    <%= f.text_area :content, :class => 'ckeditor' %>
+			  	</p>
+
+			  	<p>
+			    <%= f.submit %>
+			  	</p>
+			<% end %>
+		</div>
+		<!-- jQuery -->
+		<script src="//code.jquery.com/jquery.js"></script>
+		<!-- Bootstrap JavaScript -->
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>

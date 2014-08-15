@@ -1,0 +1,19 @@
+<div class="container">
+	<h2>
+		<%= @schedule.title %>
+	</h2>
+	<h2>
+		<%= @schedule.date %>
+	</h2>
+	<%= raw @schedule.content %>
+	<div data-no-turbolink class="archive-button">
+		<%= link_to schedules_path do %>
+		<button type="button" class="btn btn-default">Schedule Archive</button>
+		<% end %>
+	</div>
+</div>
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>

@@ -1,0 +1,89 @@
+<section class="container content">
+    <div class="row">
+        <section class="scrollspy clearfix col col-md-3 hidden-sm hidden-xs">
+            <ul class="affix nav nav-list" data-type="scrollspy">
+                <li><a href="#june"><span class="glyphicon glyphicon-calendar"></span> June</a></li>
+                <li><a href="#may"><span class="glyphicon glyphicon-calendar"></span> May</a></li>
+                <li><a href="#april"><span class="glyphicon glyphicon-calendar"></span> April</a></li>
+                <li><a href="#march"><span class="glyphicon glyphicon-calendar"></span> March</a></li>
+                <li><a href="#february"><span class="glyphicon glyphicon-calendar"></span> February</a></li>
+                <li><a href="#january"><span class="glyphicon glyphicon-calendar"></span> January</a></li>
+                <li><a href="#december"><span class="glyphicon glyphicon-calendar"></span> December</a></li>
+                <li><a href="#november"><span class="glyphicon glyphicon-calendar"></span> November</a></li>
+                <li><a href="#october"><span class="glyphicon glyphicon-calendar"></span> October</a></li>
+                <li><a href="#september"><span class="glyphicon glyphicon-calendar"></span> September</a></li>
+                <li><a href="#august"><span class="glyphicon glyphicon-calendar"></span> August</a></li>
+                <li><a href="#july"><span class="glyphicon glyphicon-calendar"></span> July</a></li>
+            </ul>
+            <div class="clearfix"></div>
+        </section>
+        <span class="col-md-9 schedules">
+            <h1 class="category">All Schedules</h1>
+            <div data-no-turbolink>
+            <%= link_to new_schedule_path do %>
+                <span class="glyphicon glyphicon-plus-sign"></span> New Schedule
+            <% end %>
+            <div class="btn-group sub-filter">
+                <button type="button" class="btn btn-default all" value="Regular">All</button>
+                <button type="button" class="btn btn-default honors">Honors Chemistry</button>
+                <button type="button" class="btn btn-default regular">Regular Chemistry</button>
+            </div>
+            </div>
+
+            <% @schedules.each do |schedule| %>
+            <div class="post <%= schedule.category %>" id="<%= schedule.date.strftime("%B").downcase %>">
+                <hr>
+                <span class="icon">
+                                <%= link_to schedule_path(schedule), method: :DELETE, data: {confirm: "Are you sure you want to delete this schedule? There is no going back!" } do %>
+                                <span class="glyphicon glyphicon-remove"></span>Delete
+                                <% end %>
+                            </span>
+                            <span class="icon" data-no-turbolink>
+                                <%= link_to edit_schedule_path(schedule) do %>
+                                <span class="glyphicon glyphicon-pencil"></span>Edit
+                                <% end %>
+                            </span>
+                            <h2 class="title">
+                            <%= schedule.date.strftime("%B %d, %Y") %>: <%= schedule.title %>
+                            </h2>
+                <%= raw schedule.content %>
+            </div>
+            <% end %>
+
+        </span>
+    </div>
+</section>
+<script>
+    $(document).ready(function(){
+        $(".sub-filter").on('click', "button",function(){
+            var category = $(this).text();
+            if (category == "All"){
+                $(".post").removeClass("hidden");
+                $(".category").text(category+" Schedules");
+            } else {
+                $(".post").addClass("hidden");
+                $("." + category.slice(0,-9)).removeClass("hidden");
+                $(".category").text(category);
+            }
+        });
+        var $window = $(window);
+
+        $('section.scrollspy').each(function(){
+            var $obj = $('.scrollspy .nav'); // assigning the object
+            $(window).scroll(function() {
+                if ($window.scrollTop() < 370 ) {
+                    var yPos = 370-$window.scrollTop();
+                }
+                else{
+                    var yPos = 20;
+                }
+                $obj.css({"top" : yPos + "px" });
+            });
+        });
+    });
+</script>
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
